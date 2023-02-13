@@ -90,7 +90,6 @@ function App() {
   }
 
   function changeDirection(direction: 1 | 2 | 3 | 4) {
-    console.log("CD");
     if (!checkBackwards(direction)) {
       setDirection(direction);
     }
