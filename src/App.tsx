@@ -89,30 +89,30 @@ function App() {
     return false;
   }
 
+  function changeDirection(direction: 1 | 2 | 3 | 4) {
+    console.log("CD");
+    if (!checkBackwards(direction)) {
+      setDirection(direction);
+    }
+  }
+
   function keyHandler(ev: KeyboardEvent) {
-    if (ev.code === "KeyW") {
-      if (checkBackwards(1)) {
-        return;
-      }
-      setDirection(1);
-    }
-    if (ev.code === "KeyD") {
-      if (checkBackwards(2)) {
-        return;
-      }
-      setDirection(2);
-    }
-    if (ev.code === "KeyS") {
-      if (checkBackwards(3)) {
-        return;
-      }
-      setDirection(3);
-    }
-    if (ev.code === "KeyA") {
-      if (checkBackwards(4)) {
-        return;
-      }
-      setDirection(4);
+    switch (ev.code) {
+      case "KeyW":
+        changeDirection(1);
+        break;
+      case "KeyD":
+        changeDirection(2);
+        break;
+      case "KeyS":
+        changeDirection(3);
+        break;
+      case "KeyA":
+        changeDirection(4);
+        break;
+
+      default:
+        break;
     }
   }
 
@@ -224,8 +224,16 @@ function App() {
     );
   };
 
+  const Description: FC = () => {
+    return (
+      <div className="text-center text-xl text-gray-200">
+        Constrols: <br />W - up | S - down | A - left | D - right
+      </div>
+    );
+  };
+
   return (
-    <div className="flex h-full w-full items-center justify-center align-middle">
+    <div className="flex h-full w-full flex-col items-center justify-center align-middle">
       <div className="relative h-[420px] w-[420px] bg-slate-900">
         {snake &&
           snake.map((el, key) => {
@@ -240,8 +248,51 @@ function App() {
           <Menu>
             <Score />
             <Button title="Start" action={start} />
+            <Description />
           </Menu>
         )}
+      </div>
+      <div className={`mt-4 grid grid-cols-3 grid-rows-4 gap-1`}>
+        <button
+          onClick={() => {
+            changeDirection(1);
+          }}
+          className={`col-start-2 row-start-1 row-end-3 h-10 w-10 rounded-md bg-slate-500 text-white ${
+            direction === 1 && "bg-green-400"
+          }`}
+        >
+          &#8593;
+        </button>
+        <button
+          onClick={() => {
+            changeDirection(2);
+          }}
+          className={`col-start-3 row-start-2 row-end-4 h-10 w-10 rounded-md bg-slate-500 text-white ${
+            direction === 2 && "bg-green-400"
+          }`}
+        >
+          &#8594;
+        </button>
+        <button
+          onClick={() => {
+            changeDirection(3);
+          }}
+          className={`col-start-2 row-start-3 row-end-4 h-10 w-10 rounded-md bg-slate-500 text-white ${
+            direction === 3 && "bg-green-400"
+          }`}
+        >
+          &#8595;
+        </button>
+        <button
+          onClick={() => {
+            changeDirection(4);
+          }}
+          className={`col-start-1 row-start-2 row-end-4 h-10 w-10 rounded-md bg-slate-500 text-white ${
+            direction === 4 && "bg-green-400"
+          }`}
+        >
+          &#8592;
+        </button>
       </div>
     </div>
   );
